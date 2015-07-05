@@ -14,10 +14,10 @@
     Point.airResistance = 1.025;
     Point.mass = 0.2;
 
-    Point.prototype.update = function (context) {
+    Point.prototype.update = function (context, adjust) {
         if (!this.dragged) {
-            this.pos = this.pos.add(this.vel);
-            this.vel = this.vel.add(new phys.Vector(0, Point.mass));
+            this.pos = this.pos.add(this.vel.multiply(adjust));
+            this.vel = this.vel.add(new phys.Vector(0, Point.mass).multiply(adjust));
             this.vel = this.vel.divide(Point.airResistance);
         }
 

@@ -20,12 +20,12 @@
         context.stroke();
     };
 
-    Spring.prototype.update = function () {
+    Spring.prototype.update = function (context, adjust) {
         var difference = this.second.pos.subtract(this.first.pos);
         var distance = this.length();
 
         var extension = distance - this.restLength;
-        var vel = difference.normalize().divide(this.springyness).multiply(extension);
+        var vel = difference.normalize().divide(this.springyness).multiply(extension).multiply(adjust);
 
         this.first.vel = this.first.vel.add(vel);
         this.second.vel = this.second.vel.subtract(vel);

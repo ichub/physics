@@ -1,10 +1,51 @@
-body {
-    margin: 0;
-    overflow: hidden;
+#canvasContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
+    margin-top: 20px !important;
+    margin-bottom: 10px !important;
+}
+
+#subtitle {
+    margin-bottom: 10px !important;
 }
 
 #canvas {
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw;
+    min-width: 1000px;
+    min-height: 600px;
+    height: 600px;
     background-color: #353889;
+}
+
+#instructions {
+    text-align: center;
+    color: #90adb7;
+    font-size: 11pt;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#github_stuff {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+#github_stuff a {
+    font-size: 10pt;
+    vertical-align: middle;
+    position: relative;
+    top: -5px;
+
+    color: #90adb7;
+}
+
+#github_stuff a:hover {
+    color: #5775b7;
 }

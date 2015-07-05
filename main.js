@@ -23,6 +23,8 @@
         // mouse position
         this.ms = phys.Vector.zero();
 
+        this.lastFrameTime = null;
+
         this.initialize();
     }
 
@@ -182,28 +184,38 @@
     };
 
     Simulation.prototype.start = function () {
-        this.tick();
+        this.lastFrameTime = this.lastFrameTime || new Date();
+        var currentTime = new Date();
+
+        // difference between the time that the last frame
+        // was run and the current time in milliseconds
+        var delta = currentTime - this.lastFrameTime;
+
+        // number that we multiply displacements by to
+        // compensate for going faster/slower than 60fps
+        var adjust = (1000 / 60) / delta;
+        console.log(adjust);
+        this.tick(adjust);
+
+        this.lastFrameTime = currentTime;
 
         var that = this;
 
-        // run the app at 60fps
-        setTimeout(function () {
-            requestAnimationFrame(function () {
-                that.start();
-            });
-        }, 1000 / 60);
+        requestAnimationFrame(function () {
+            that.start();
+        });
     };
 
-    Simulation.prototype.tick = function () {
+    Simulation.prototype.tick = function (adjust) {
         this.clear();
 
         // first we updated the game state
         for (var i = 0; i < this.springs.length; i++) {
-            this.springs[i].update(this.context);
+            this.springs[i].update(this.context, adjust);
         }
 
         for (var i = 0; i < this.points.length; i++) {
-            this.points[i].update(this.context);
+            this.points[i].update(this.context, adjust);
         }
 
         // then we draw it to the screen
