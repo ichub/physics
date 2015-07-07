@@ -16,6 +16,11 @@
         // whether or not dragging right now
         this.dragPressed = false;
 
+        // for macs, control clicking is equivalent
+        // to right clicking, so keep track of
+        // whether or not it's pressed here
+        this.controlPressed = false;
+
         // a reference to the currently dragged point
         // null if no dragged
         this.dragged = null;
@@ -60,7 +65,10 @@
         });
 
         $(document.body).keydown(function (e) {
-            if (e.keyCode == 68) { // d
+            if (e.keyCode == 17) { // ctrl
+                that.controlPressed = true;
+            }
+            else if (e.keyCode == 68) { // d
                 that.dragPressed = true;
 
                 if (this.dragged == null && that.points.length > 0) {
@@ -94,7 +102,10 @@
 
         // stop dragging if the 'd' key is released
         $(document.body).keyup(function (e) {
-            if (e.keyCode == 68) { // d
+            if (e.keyCode == 17) { // ctrl
+                that.controlPressed = false;
+            }
+            else if (e.keyCode == 68) { // d
                 that.dragPressed = false;
 
                 if (that.dragged) {
@@ -116,7 +127,13 @@
     Simulation.prototype.onMouseDown = function (e) {
         // left mouse button
         if (e.which == 1) {
-            this.handleLeftClick(this.ms.x, this.ms.y);
+            // control+click equals right click
+            if (this.controlPressed) {
+                this.handleRightClick(this.ms.x, this.ms.y);
+            }
+            else {
+                this.handleLeftClick(this.ms.x, this.ms.y);
+            }
         }
         // right mouse button
         else if (e.which == 3) {
