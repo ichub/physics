@@ -33,9 +33,9 @@
         this.initialize();
     }
 
-// we need to set the canvas width to its actual width,
-// otherwise the canvas stretches and shrinks its content
-// when it is resized
+    // we need to set the canvas width to its actual width,
+    // otherwise the canvas stretches and shrinks its content
+    // when it is resized
     Simulation.prototype.adjustCanvasSize = function () {
         this.canvas.width = this.canvas.clientWidth;
         this.canvas.height = this.canvas.clientHeight;
@@ -141,9 +141,9 @@
         }
     };
 
-// the right click action is to select points within
-// this.mouseThreshold pixels away and then connect
-// all the selected points with springs
+    // the right click action is to select points within
+    // this.mouseThreshold pixels away and then connect
+    // all the selected points with springs
     Simulation.prototype.handleRightClick = function (x, y) {
         // get already highlighted point, if there is one
         var highlighted = this.points.filter(function (point) {
@@ -211,7 +211,7 @@
         // number that we multiply displacements by to
         // compensate for going faster/slower than 60fps
         var adjust = (1000 / 60) / delta;
-        console.log(adjust);
+
         this.tick(adjust);
 
         this.lastFrameTime = currentTime;
